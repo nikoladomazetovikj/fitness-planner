@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\Country;
 use App\Models\User;
@@ -17,11 +18,19 @@ use Inertia\Response;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Display the register view.
      */
     public function create(): Response
     {
         return Inertia::render('Auth/Register', ['countries' => Country::all()]);
+    }
+
+    /**
+     * Display the register view.
+     */
+    public function session(): Response
+    {
+        return Inertia::render('Auth/Login');
     }
 
     /**
@@ -47,14 +56,14 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-//    public function store(RegisterRequest $request): \Illuminate\Http\RedirectResponse
-//    {
-//        $request->authenticate();
-//
-//        $request->session()->regenerate();
-//
-//        return redirect()->intended(AppServiceProvider::HOME);
-//    }
+    public function login(LoginRequest $request): \Illuminate\Http\RedirectResponse
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        return redirect()->intended(AppServiceProvider::HOME);
+    }
 
     /**
      * Destroy an authenticated session.
