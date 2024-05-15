@@ -17,5 +17,5 @@ Route::middleware(['guest'])->group(function () {
 
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Welcome');
+    return Inertia::render('Dashboard/Dashboard');
 })->middleware(['auth'])->name('home');
