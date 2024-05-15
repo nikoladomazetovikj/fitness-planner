@@ -29,8 +29,8 @@ const form = useForm({
                         <v-text-field
                             v-model="form.name"
                             label="First name"
-                            hide-details
                             required
+                            :error-messages="form.errors.name"
                         ></v-text-field>
                     </v-col>
 
@@ -38,7 +38,7 @@ const form = useForm({
                         <v-text-field
                             v-model="form.surname"
                             label="Last name"
-                            hide-details
+                            :error-messages="form.errors.surname"
                             required
                         ></v-text-field>
                     </v-col>
@@ -47,7 +47,7 @@ const form = useForm({
                         <v-text-field
                             v-model="form.email"
                             label="E-mail"
-                            hide-details
+                            :error-messages="form.errors.email"
                             required
                         ></v-text-field>
                     </v-col>
@@ -57,7 +57,7 @@ const form = useForm({
                             v-model="form.password"
                             label="Password"
                             type="password"
-                            hide-details
+                            :error-messages="form.errors.password"
                             required
                         ></v-text-field>
                     </v-col>
@@ -67,7 +67,7 @@ const form = useForm({
                             v-model="form.password_confirmation"
                             label="Confirm Password"
                             type="password"
-                            hide-details
+                            :error-messages="form.errors.password_confirmation"
                             required
                         ></v-text-field>
                     </v-col>
@@ -77,7 +77,7 @@ const form = useForm({
                             v-model="form.dob"
                             label="Date of Birth"
                             type="date"
-                            hide-details
+                            :error-messages="form.errors.dob"
                             required
                         ></v-text-field>
                     </v-col>
@@ -87,7 +87,7 @@ const form = useForm({
                             v-model="form.country_id"
                             :items="countries"
                             label="Country"
-                            hide-details
+                            :error-messages="form.errors.country_id"
                             required
                             item-title="name"
                             item-value="id"
@@ -98,7 +98,7 @@ const form = useForm({
                         <v-text-field
                             v-model="form.city"
                             label="City"
-                            hide-details
+                            :error-messages="form.errors.city"
                             required
                         ></v-text-field>
                     </v-col>
