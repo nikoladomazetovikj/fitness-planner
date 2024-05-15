@@ -9,3 +9,8 @@ Route::get('/', function () {
 
 Route::get('/register', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create']);
 Route::post('/register', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']);
+
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Welcome');
+})->middleware(['auth'])->name('home');

@@ -41,7 +41,7 @@ class AuthenticatedSessionController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(AppServiceProvider::HOME);
     }
 
     /**
