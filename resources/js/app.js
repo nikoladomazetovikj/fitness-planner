@@ -2,7 +2,8 @@ import './bootstrap';
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import {createVuetify} from "vuetify";
-import {components, directives} from "vuetify/dist/vuetify.js";
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
 createInertiaApp({
 
