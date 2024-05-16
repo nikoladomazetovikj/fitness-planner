@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\RoleEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
@@ -55,6 +56,10 @@ class AuthenticatedSessionController extends Controller
             'dob' => $request->dob,
             'role_id' => $request->role_id
         ]);
+
+        if ($request->role_id === RoleEnum::COACH->value) {
+            $user->coach()->create();
+        }
 
         Auth::login($user);
 
