@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\TrainingPlanController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -9,13 +11,19 @@ Route::get('/', function () {
 
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/register', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->name('register');
-    Route::post('/register', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']);
-    Route::get('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'session'])->name('login');
-    Route::post('/login', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'login']);
+    Route::get('/register', [AuthenticatedSessionController::class, 'create'])->name('register');
+    Route::post('/register', [AuthenticatedSessionController::class, 'store']);
+    Route::get('/login', [AuthenticatedSessionController::class, 'session'])->name('login');
+    Route::post('/login', [AuthenticatedSessionController::class, 'login']);
 });
 
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard/Dashboard');
 })->middleware(['auth'])->name('home');
+
+Route::middleware(['auth'])->group(function () {
+    Route::resources([
+        'training-plans' => TrainingPlanController::class,
+    ]);
+});

@@ -1,0 +1,23 @@
+<script setup>
+import AuthLayout from "../../Layouts/AuthLayout.vue";
+import CreateForm from "./Partials/CreateForm.vue";
+
+defineProps({ categories: Array });
+</script>
+
+<template>
+    <AuthLayout>
+        <v-container class="d-flex justify-center align-center" fluid>
+            <v-row class="d-flex justify-center" no-gutters>
+                <v-col cols="12" sm="8" class="d-flex justify-center">
+                    <v-sheet class="ma-2 pa-2">
+                        <CreateForm :categories="categories" />
+                    </v-sheet>
+                </v-col>
+            </v-row>
+        </v-container>
+    </AuthLayout>
+</template>
+
+<style scoped>
+</style>

@@ -24,7 +24,5 @@
 </template>
 
 <style scoped>
-.v-container {
-    min-height: 100vh;
-}
+
 </style>

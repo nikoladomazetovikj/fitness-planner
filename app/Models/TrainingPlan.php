@@ -15,4 +15,9 @@ class TrainingPlan extends Model
     {
         return $this->belongsTo(Coach::class);
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'training_plans_categories', 'training_plan_id', 'category_id');
+    }
 }
