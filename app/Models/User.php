@@ -24,7 +24,8 @@ class User extends Authenticatable
         'password',
         'city',
         'dob',
-        'country_id'
+        'country_id',
+        'role_id'
     ];
 
     /**
@@ -53,5 +54,10 @@ class User extends Authenticatable
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
     }
 }

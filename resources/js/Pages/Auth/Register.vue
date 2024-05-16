@@ -2,7 +2,7 @@
 import GuestLayout from "../../Layouts/GuestLayout.vue";
 import { Head, useForm } from '@inertiajs/vue3';
 
-defineProps({ countries: Object });
+defineProps({ countries: Object, roles: Object });
 
 
 const form = useForm({
@@ -13,7 +13,8 @@ const form = useForm({
     password_confirmation: null,
     dob: null,
     country_id: null,
-    city: null
+    city: null,
+    role_id: null
 });
 
 </script>
@@ -101,6 +102,27 @@ const form = useForm({
                             :error-messages="form.errors.city"
                             required
                         ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" md="6">
+                        <v-radio-group
+                            v-model="form.role_id"
+
+                            :error-messages="form.errors.role_id"
+                            label="Role"
+                        >
+                            <v-radio
+                                color="primary"
+                                :label="roles[0].name"
+                                :value="roles[0].id"
+                            ></v-radio>
+                            <v-radio
+                                color="primary"
+                                :label="roles[1].name"
+                                :value="roles[1].id"
+                            ></v-radio>
+
+                        </v-radio-group>
                     </v-col>
 
                     <v-col cols="12">

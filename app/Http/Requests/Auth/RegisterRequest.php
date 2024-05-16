@@ -32,6 +32,7 @@ class RegisterRequest extends FormRequest
             'dob' => ['required', 'date'],
             'country_id' => ['required', 'exists:countries,id'],
             'city' => ['required', 'string', 'max:255'],
+            'role_id' => ['required', 'exists:roles,id'],
         ];
     }
 

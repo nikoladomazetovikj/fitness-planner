@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\Country;
+use App\Models\Role;
 use App\Models\User;
 use App\Providers\AppServiceProvider;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
@@ -22,7 +23,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register', ['countries' => Country::all()]);
+        return Inertia::render('Auth/Register',
+            [
+                'countries' => Country::all(),
+                'roles' =>  Role::all()
+
+            ]
+        );
     }
 
     /**
@@ -45,7 +52,8 @@ class AuthenticatedSessionController extends Controller
             'password' => Hash::make($request->password),
             'country_id' => $request->country_id,
             'city' => $request->city,
-            'dob' => $request->dob
+            'dob' => $request->dob,
+            'role_id' => $request->role_id
         ]);
 
         Auth::login($user);
