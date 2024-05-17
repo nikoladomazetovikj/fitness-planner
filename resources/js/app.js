@@ -4,6 +4,7 @@ import { createInertiaApp } from '@inertiajs/vue3'
 import {createVuetify} from "vuetify";
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
 createInertiaApp({
 
@@ -22,6 +23,7 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(vuetify)
+            .use(ZiggyVue)
             .mount(el)
     },
 })
