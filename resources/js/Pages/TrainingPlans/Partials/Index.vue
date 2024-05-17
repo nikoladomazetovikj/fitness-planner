@@ -1,8 +1,8 @@
 <script setup>
-import AuthLayout from "../../Layouts/AuthLayout.vue";
-import CreateForm from "./Partials/CreateForm.vue";
 
-defineProps({ categories: Array });
+import AuthLayout from "../../../Layouts/AuthLayout.vue";
+
+defineProps({ trainingPlans: Object });
 </script>
 
 <template>
@@ -11,7 +11,7 @@ defineProps({ categories: Array });
             <v-row class="d-flex justify-center" no-gutters>
                 <v-col cols="12" sm="8" class="d-flex justify-center">
                     <v-sheet class="ma-4 pa-4" >
-                        <CreateForm :categories="categories" />
+
                     </v-sheet>
                 </v-col>
             </v-row>
@@ -20,7 +20,4 @@ defineProps({ categories: Array });
 </template>
 
 <style scoped>
-.v-container {
-    min-height: 100vh;
-}
 </style>
