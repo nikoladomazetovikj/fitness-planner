@@ -6,12 +6,15 @@ export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/js/app.js', 'resources/css/app.css'],
+            ssr: 'resources/js/ssr.js',
             refresh: true,
         }),
         vue({
-            resolve: name => {
-                const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
-                return pages[`./Pages/${name}.vue`]
+            template: {
+                transformAssetUrls: {
+                    base: null,
+                    includeAbsolute: false,
+                },
             },
         }),
     ],

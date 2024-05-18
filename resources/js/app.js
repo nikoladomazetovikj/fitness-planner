@@ -1,5 +1,5 @@
 import './bootstrap';
-import { createApp, h } from 'vue'
+import {createSSRApp, h} from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import {createVuetify} from "vuetify";
 import * as components from 'vuetify/components'
@@ -20,7 +20,7 @@ createInertiaApp({
                 defaultTheme: 'dark'
             }
         })
-        createApp({ render: () => h(App, props) })
+        createSSRApp({ render: () => h(App, props) })
             .use(plugin)
             .use(vuetify)
             .use(ZiggyVue)
