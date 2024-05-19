@@ -1,8 +1,9 @@
 <script setup>
 
-import AuthLayout from "../../../Layouts/AuthLayout.vue";
+import AuthLayout from "../../Layouts/AuthLayout.vue";
+import {defineProps} from "vue";
 
-defineProps({ trainingPlans: Object });
+defineProps({ default: () => ({}) });
 </script>
 
 <template>

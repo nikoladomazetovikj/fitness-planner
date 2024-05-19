@@ -41,7 +41,7 @@ class TrainingPlanController extends Controller
 
         $trainingPlan->categories()->sync($request->categories_ids);
 
-        return Redirect::route('training-plans.index')->with('success', 'Training Plan created successfully.');
+        return redirect()->route('training-plans.index')->with('success', 'Training Plan created successfully.');
     }
 
     /**
