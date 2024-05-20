@@ -42,6 +42,11 @@ const totalPages = computed(() => props.trainingPlans.last_page);
                                     </v-card-text>
                                 </v-card>
                             </template>
+                            <v-pagination
+                                v-model="page"
+                                :length="totalPages"
+                                :total-visible="10"
+                            ></v-pagination>
                         </template>
                     </v-data-iterator>
                 </v-col>

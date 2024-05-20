@@ -20,7 +20,7 @@ class TrainingPlanController extends Controller
         return Inertia::render('TrainingPlans/Index', [
             'trainingPlans' => TrainingPlan::with('coach.user', 'categories')
                 ->orderByDesc('created_at')
-                ->paginate(10)
+                ->paginate(5)
         ]);
     }
 
