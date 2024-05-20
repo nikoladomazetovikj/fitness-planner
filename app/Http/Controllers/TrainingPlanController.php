@@ -17,7 +17,11 @@ class TrainingPlanController extends Controller
      */
     public function index()
     {
-        return Inertia::render('TrainingPlans/Index', ['trainingPlans' => TrainingPlan::all()]);
+        return Inertia::render('TrainingPlans/Index', [
+            'trainingPlans' => TrainingPlan::with('coach.user', 'categories')
+                ->orderByDesc('created_at')
+                ->paginate(10)
+        ]);
     }
 
     /**

@@ -1,19 +1,49 @@
 <script setup>
-
 import AuthLayout from "../../Layouts/AuthLayout.vue";
-import {defineProps} from "vue";
+import { ref, computed } from 'vue';
+import { defineProps } from 'vue';
 
-defineProps({ default: () => ({}) });
+const props = defineProps({
+    trainingPlans: {
+        type: Object,
+        required: true
+    }
+});
+
+
+const page = ref(props.trainingPlans.current_page);
+const items = ref(props.trainingPlans.data);
+
+const totalPages = computed(() => props.trainingPlans.last_page);
+
 </script>
 
 <template>
     <AuthLayout>
         <v-container class="d-flex justify-center align-center" fluid>
             <v-row class="d-flex justify-center" no-gutters>
-                <v-col cols="12" sm="8" class="d-flex justify-center">
-                    <v-sheet class="ma-4 pa-4" >
-
-                    </v-sheet>
+                <v-col cols="12" sm="8">
+                    <v-data-iterator :items="items" :items-per-page="10" :page.sync="page">
+                        <template v-slot:default="{ items }">
+                            <template v-for="(item, i) in items" :key="i">
+                                <v-card class="mb-3">
+                                    <v-card-title class="d-flex justify-space-between">
+                                        <span>{{ item.raw.name }}</span>
+                                        <span>Posted: {{ new Date(item.raw.created_at).toLocaleDateString() }}</span>
+                                    </v-card-title>
+                                    <v-card-subtitle>Coach: {{ item.raw.coach.user.name }} {{
+                                            item.raw.coach.user.surname }}</v-card-subtitle>
+                                    <v-card-text>
+                                        <v-row>
+                                            <v-col v-for="(category, index) in item.raw.categories" :key="index" cols="auto">
+                                                <v-chip>{{ category.name }}</v-chip>
+                                            </v-col>
+                                        </v-row>
+                                    </v-card-text>
+                                </v-card>
+                            </template>
+                        </template>
+                    </v-data-iterator>
                 </v-col>
             </v-row>
         </v-container>
