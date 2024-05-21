@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TrainingPlan\CreateRequest;
+use App\Http\Requests\TrainingPlan\DeleteRequest;
 use App\Http\Requests\TrainingPlan\UpdateRequest;
 use App\Models\Category;
 use App\Models\Coach;
@@ -86,8 +87,11 @@ class TrainingPlanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TrainingPlan $trainingPlan)
+    public function destroy(TrainingPlan $trainingPlan, DeleteRequest $request)
     {
-        //
+        $trainingPlan->categories()->detach();
+        $trainingPlan->delete();
+
+        return redirect()->route('training-plans.index')->with('success', 'Training Plan deleted successfully.');
     }
 }

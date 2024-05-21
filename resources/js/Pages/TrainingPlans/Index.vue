@@ -2,7 +2,8 @@
 import AuthLayout from "../../Layouts/AuthLayout.vue";
 import {ref, computed, watch} from 'vue';
 import {defineProps} from 'vue';
-import {usePage, router} from '@inertiajs/vue3';
+import {router} from '@inertiajs/vue3';
+import DeleteAlert from "../../Components/DeleteAlert.vue";
 
 const props = defineProps({
     trainingPlans: {
@@ -13,6 +14,8 @@ const props = defineProps({
 
 const page = ref(props.trainingPlans.current_page);
 const items = ref(props.trainingPlans.data);
+const dialogVisible = ref(false);
+const itemToDelete = ref(null);
 
 const totalPages = computed(() => props.trainingPlans.last_page);
 
@@ -20,9 +23,23 @@ watch(page, (newPage) => {
     router.get(route('training-plans.index'), {page: newPage}, {preserveState: false});
 });
 
-const handleEditCLick = (id) => {
+const handleEdit = (id) => {
     router.get(route('training-plans.edit', id));
-}
+};
+
+const handleDelete = (id) => {
+    itemToDelete.value = id;
+    dialogVisible.value = true;
+};
+
+const confirmDelete = () => {
+    router.delete(route('training-plans.destroy', itemToDelete.value));
+    dialogVisible.value = false;
+};
+
+const closeDialog = () => {
+    dialogVisible.value = false;
+};
 
 </script>
 
@@ -52,8 +69,8 @@ const handleEditCLick = (id) => {
                                         </v-row>
                                     </v-card-text>
                                     <v-card-actions class="d-flex justify-end">
-                                        <v-btn color="primary" @click="handleEditCLick(item.raw.id)">Edit</v-btn>
-                                        <v-btn color="red" >Delete</v-btn>
+                                        <v-btn color="primary" @click="handleEdit(item.raw.id)">Edit</v-btn>
+                                        <v-btn color="red" @click="handleDelete(item.raw.id)">Delete</v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </template>
@@ -66,6 +83,7 @@ const handleEditCLick = (id) => {
                     </v-data-iterator>
                 </v-col>
             </v-row>
+            <DeleteAlert :show="dialogVisible" @close="closeDialog" @confirm="confirmDelete" />
         </v-container>
     </AuthLayout>
 </template>
