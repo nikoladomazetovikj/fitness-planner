@@ -19,6 +19,11 @@ const totalPages = computed(() => props.trainingPlans.last_page);
 watch(page, (newPage) => {
     router.get(route('training-plans.index'), {page: newPage}, {preserveState: false});
 });
+
+const handleEditCLick = (id) => {
+    router.get(route('training-plans.edit', id));
+}
+
 </script>
 
 <template>
@@ -46,6 +51,10 @@ watch(page, (newPage) => {
                                             </v-col>
                                         </v-row>
                                     </v-card-text>
+                                    <v-card-actions class="d-flex justify-end">
+                                        <v-btn color="primary" @click="handleEditCLick(item.raw.id)">Edit</v-btn>
+                                        <v-btn color="red" >Delete</v-btn>
+                                    </v-card-actions>
                                 </v-card>
                             </template>
                             <v-pagination
