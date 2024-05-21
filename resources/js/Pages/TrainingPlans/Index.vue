@@ -1,7 +1,8 @@
 <script setup>
 import AuthLayout from "../../Layouts/AuthLayout.vue";
-import { ref, computed } from 'vue';
-import { defineProps } from 'vue';
+import {ref, computed, watch} from 'vue';
+import {defineProps} from 'vue';
+import {usePage, router} from '@inertiajs/vue3';
 
 const props = defineProps({
     trainingPlans: {
@@ -10,12 +11,14 @@ const props = defineProps({
     }
 });
 
-
 const page = ref(props.trainingPlans.current_page);
 const items = ref(props.trainingPlans.data);
 
 const totalPages = computed(() => props.trainingPlans.last_page);
 
+watch(page, (newPage) => {
+    router.get(route('training-plans.index'), {page: newPage}, {preserveState: false});
+});
 </script>
 
 <template>
@@ -32,10 +35,13 @@ const totalPages = computed(() => props.trainingPlans.last_page);
                                         <span>Posted: {{ new Date(item.raw.created_at).toLocaleDateString() }}</span>
                                     </v-card-title>
                                     <v-card-subtitle>Coach: {{ item.raw.coach.user.name }} {{
-                                            item.raw.coach.user.surname }}</v-card-subtitle>
+                                            item.raw.coach.user.surname
+                                        }}
+                                    </v-card-subtitle>
                                     <v-card-text>
                                         <v-row>
-                                            <v-col v-for="(category, index) in item.raw.categories" :key="index" cols="auto">
+                                            <v-col v-for="(category, index) in item.raw.categories" :key="index"
+                                                   cols="auto">
                                                 <v-chip>{{ category.name }}</v-chip>
                                             </v-col>
                                         </v-row>
