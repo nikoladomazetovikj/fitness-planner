@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TrainingPlan\CreateRequest;
+use App\Http\Requests\TrainingPlan\UpdateRequest;
 use App\Models\Category;
 use App\Models\Coach;
 use App\Models\TrainingPlan;
@@ -61,15 +62,25 @@ class TrainingPlanController extends Controller
      */
     public function edit(TrainingPlan $trainingPlan)
     {
-        //
+        return Inertia::render('TrainingPlans/Edit', [
+            'trainingPlan' => $trainingPlan->load('categories'),
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TrainingPlan $trainingPlan)
+    public function update(UpdateRequest $request, TrainingPlan $trainingPlan)
     {
-        //
+        $trainingPlan->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        $trainingPlan->categories()->sync($request->categories_ids);
+
+        return redirect()->route('training-plans.index')->with('success', 'Training Plan updated successfully.');
     }
 
     /**
