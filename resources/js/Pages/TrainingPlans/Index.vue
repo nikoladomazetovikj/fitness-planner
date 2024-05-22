@@ -17,7 +17,7 @@ const items = ref(props.trainingPlans.data);
 const dialogVisible = ref(false);
 const itemToDelete = ref(null);
 
-const totalPages = computed(() => props.trainingPlans.last_page);
+let totalPages =  props.trainingPlans.last_page;
 
 watch(page, (newPage) => {
     router.get(route('training-plans.index'), {page: newPage}, {preserveState: false});
@@ -33,7 +33,7 @@ const handleDelete = (id) => {
 };
 
 const confirmDelete = () => {
-    router.delete(route('training-plans.destroy', itemToDelete.value));
+    router.delete(route('training-plans.destroy', itemToDelete.value), {preserveState: false});
     dialogVisible.value = false;
 };
 
