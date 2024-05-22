@@ -7,7 +7,7 @@ const props = defineProps({ categories: Array, trainingPlan: Object });
 const form = useForm({
     name: props.trainingPlan.name,
     description: props.trainingPlan.description,
-    categories_ids: props.trainingPlan.categories
+    categories_ids: props.trainingPlan.categories.map(category => category.id)
 });
 
 function submit() {
