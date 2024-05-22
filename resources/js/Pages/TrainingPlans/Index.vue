@@ -53,7 +53,7 @@ const closeDialog = () => {
                             <template v-for="(item, i) in items" :key="i">
                                 <v-card class="mb-3">
                                     <v-card-title class="d-flex justify-space-between">
-                                        <Link :href="route('training-plans.show', item.raw.id)">{{
+                                        <Link class="text-decoration-none" :href="route('training-plans.show', item.raw.id)">{{
                                                 item.raw.name }}</Link>
                                         <span>Posted: {{ new Date(item.raw.created_at).toLocaleDateString() }}</span>
                                     </v-card-title>

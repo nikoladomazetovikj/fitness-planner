@@ -1,6 +1,6 @@
 <script setup>
 import GuestLayout from "../../Layouts/GuestLayout.vue";
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, Link } from '@inertiajs/vue3';
 
 
 const form = useForm({
@@ -15,7 +15,7 @@ const form = useForm({
     <GuestLayout>
         <v-form @submit.prevent="form.post('/login')">
             <v-container>
-                <h1>Login</h1>
+                <v-card-title class="text-h3 text-center mb-5">Login</v-card-title>
                 <v-row>
 
                     <v-col cols="12" >
@@ -50,6 +50,7 @@ const form = useForm({
                             Login
                         </v-btn>
                     </v-col>
+                    <Link class="text-decoration-none" :href="route('register')">Don't have Account? Sign Up</Link>
                 </v-row>
             </v-container>
         </v-form>

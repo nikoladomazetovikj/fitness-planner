@@ -17,13 +17,13 @@ defineProps({trainingPlan: Object})
                 <v-card-text>
                     <v-row>
                         <v-col cols="6">
-                            <v-subheader class="subtitle-2">Coach:</v-subheader>
+                            <h4 class="subtitle-2">Coach:</h4>
                             <div>{{ trainingPlan.coach.user.name }} {{ trainingPlan.coach.user.surname }}</div>
-                            <v-subheader v-if="trainingPlan.coach.bio" class="subtitle-2">Bio:</v-subheader>
+                            <h4 v-if="trainingPlan.coach.bio" class="subtitle-2">Bio:</h4>
                             <div v-if="trainingPlan.coach.bio">{{ trainingPlan.coach.bio }}</div>
                         </v-col>
                         <v-col cols="6">
-                            <v-subheader class="subtitle-2">Categories:</v-subheader>
+                            <h4 class="subtitle-2">Categories:</h4>
                             <v-row>
                                 <v-col v-for="category in trainingPlan.categories" :key="category.id" cols="auto">
                                     <v-chip
