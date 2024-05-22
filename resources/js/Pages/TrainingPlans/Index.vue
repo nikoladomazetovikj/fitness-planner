@@ -2,7 +2,7 @@
 import AuthLayout from "../../Layouts/AuthLayout.vue";
 import {ref, computed, watch} from 'vue';
 import {defineProps} from 'vue';
-import {router} from '@inertiajs/vue3';
+import {router, Link } from '@inertiajs/vue3';
 import DeleteAlert from "../../Components/DeleteAlert.vue";
 
 const props = defineProps({
@@ -53,7 +53,8 @@ const closeDialog = () => {
                             <template v-for="(item, i) in items" :key="i">
                                 <v-card class="mb-3">
                                     <v-card-title class="d-flex justify-space-between">
-                                        <span>{{ item.raw.name }}</span>
+                                        <Link :href="route('training-plans.show', item.raw.id)">{{
+                                                item.raw.name }}</Link>
                                         <span>Posted: {{ new Date(item.raw.created_at).toLocaleDateString() }}</span>
                                     </v-card-title>
                                     <v-card-subtitle>Coach: {{ item.raw.coach.user.name }} {{

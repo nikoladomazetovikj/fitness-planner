@@ -1,7 +1,20 @@
 <script setup>
 import { ref } from 'vue'
+import {router} from "@inertiajs/vue3";
 
 const drawer = ref(null)
+
+const menuItems = [
+    { title: 'Home', icon: 'mdi-home', route: route('home') },
+    { title: 'Training Plans', icon: 'mdi-dumbbell', route: route('training-plans.index') },
+    { title: 'Nutrition', icon: 'mdi-food', route: '/nutrition' },
+    { title: 'Progress', icon: 'mdi-chart-line', route: '/progress' },
+];
+
+const navigate = (route) => {
+    router.get(route)
+};
+
 </script>
 
 <script>
@@ -14,8 +27,26 @@ export default {
 
 <template>
     <v-app>
-        <v-navigation-drawer v-model="drawer">
+        <v-navigation-drawer v-model="drawer" app>
+            <v-list dense>
+                <!-- Fitness Planner Title -->
+                <v-list-item>
+                    <v-list-item-title class="title">Fitness Planner</v-list-item-title>
+                </v-list-item>
 
+                <!-- Divider -->
+                <v-divider></v-divider>
+
+                <!-- Menu Items -->
+                <v-list-item v-for="(item, index) in menuItems" :key="index" @click="navigate(item.route)">
+                    <v-list-item-icon>
+                        <v-icon>{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list>
         </v-navigation-drawer>
 
         <v-app-bar>
