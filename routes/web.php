@@ -23,6 +23,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
+
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
     Route::resources([
         'training-plans' => TrainingPlanController::class,
     ]);

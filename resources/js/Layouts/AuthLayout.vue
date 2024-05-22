@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import {router} from "@inertiajs/vue3";
+import {router, useForm} from "@inertiajs/vue3";
 
 const drawer = ref(null)
 
@@ -14,6 +14,12 @@ const menuItems = [
 const navigate = (route) => {
     router.get(route)
 };
+
+const form = useForm({});
+
+const logout = () => {
+    router.post(route('logout'), form);
+}
 
 </script>
 
@@ -44,6 +50,16 @@ export default {
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-divider></v-divider>
+                <v-list-item @click="logout">
+                    <v-list-item-icon>
+                        <v-icon>mdi-logout</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Logout</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
