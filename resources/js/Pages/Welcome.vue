@@ -1,6 +1,6 @@
 
 <script setup>
-import {router} from "@inertiajs/vue3";
+import {router, Head} from "@inertiajs/vue3";
 
 const login = () => {
     router.get(route('login'))
@@ -8,6 +8,7 @@ const login = () => {
 </script>
 
 <template>
+    <Head title="FitnessPlanner"/>
     <div>
         <!-- Hero Section -->
         <v-row align="center" justify="center" class="hero">

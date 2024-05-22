@@ -1,12 +1,14 @@
 <script setup>
 
 import AuthLayout from "../../Layouts/AuthLayout.vue";
+import {Head} from "@inertiajs/vue3";
 
 defineProps({trainingPlan: Object})
 
 </script>
 
 <template>
+    <Head :title="trainingPlan.name"/>
     <AuthLayout>
         <v-container fluid>
             <v-card class="mx-auto" max-width="600" elevation="3">

@@ -2,7 +2,7 @@
 import AuthLayout from "../../Layouts/AuthLayout.vue";
 import {ref, computed, watch} from 'vue';
 import {defineProps} from 'vue';
-import {router, Link } from '@inertiajs/vue3';
+import {router, Link, Head} from '@inertiajs/vue3';
 import DeleteAlert from "../../Components/DeleteAlert.vue";
 
 const props = defineProps({
@@ -41,12 +41,20 @@ const closeDialog = () => {
     dialogVisible.value = false;
 };
 
+const handleCreateClick = () => {
+    router.get(route('training-plans.create'));
+}
+
 </script>
 
 <template>
+    <Head title="TrainingPlans"/>
     <AuthLayout>
         <v-container class="d-flex justify-center align-center" fluid>
             <v-row class="d-flex justify-center" no-gutters>
+                <v-col cols="12" sm="8" class="d-flex justify-end my-5">
+                    <v-btn color="primary" @click="handleCreateClick">Create New Plan</v-btn>
+                </v-col>
                 <v-col cols="12" sm="8">
                     <v-data-iterator :items="items" :items-per-page="10" :page.sync="page">
                         <template v-slot:default="{ items }">

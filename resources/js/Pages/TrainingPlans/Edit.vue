@@ -1,11 +1,13 @@
 <script setup>
 import AuthLayout from "../../Layouts/AuthLayout.vue";
 import EditForm from "./Partials/EditForm.vue";
+import {Head} from "@inertiajs/vue3";
 
 defineProps({ categories: Array, trainingPlan: Object });
 </script>
 
 <template>
+    <Head :title="trainingPlan.name"/>
     <AuthLayout>
         <v-container class="d-flex justify-center align-center" fluid>
             <v-row class="d-flex justify-center" no-gutters>
