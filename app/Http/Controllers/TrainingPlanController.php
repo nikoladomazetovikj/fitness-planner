@@ -55,7 +55,8 @@ class TrainingPlanController extends Controller
      */
     public function show(TrainingPlan $trainingPlan)
     {
-        //
+        return Inertia::render('TrainingPlans/Show',
+            ['trainingPlan' => $trainingPlan->load('coach.user', 'categories')]);
     }
 
     /**
