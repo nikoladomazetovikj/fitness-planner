@@ -1,6 +1,6 @@
 <script setup>
 import AuthLayout from "../../Layouts/AuthLayout.vue";
-import {ref, computed, watch} from 'vue';
+import {ref, computed, watch, onMounted} from 'vue';
 import {defineProps} from 'vue';
 import {router, Link, Head} from '@inertiajs/vue3';
 import DeleteAlert from "../../Components/DeleteAlert.vue";
@@ -11,8 +11,11 @@ const props = defineProps({
         type: Object,
         required: true
     },
+    flash: {
+        type: Object,
+        required: false,
+    }
 });
-
 
 const page = ref(props.trainingPlans.current_page);
 const items = ref(props.trainingPlans.data);
@@ -47,6 +50,14 @@ const handleCreateClick = () => {
     router.get(route('training-plans.create'));
 }
 
+onMounted(() => {
+    if (props.flash && props.flash.success) {
+        setTimeout(() => {
+            router.visit(window.location.pathname, { preserveState: true, preserveScroll: true });
+        }, 2000);
+    }
+});
+
 </script>
 
 <template>
@@ -54,8 +65,8 @@ const handleCreateClick = () => {
     <AuthLayout>
         <v-container class="d-flex justify-center align-center" fluid>
             <v-row class="d-flex justify-center" no-gutters>
-                <v-col v-if="$page.props.flash.success" cols="12" sm="8" class="d-flex  my-5">
-                    <Alert :message="$page.props.flash.success"/>
+                <v-col v-if="flash && flash.success" cols="12" sm="8" class="d-flex my-5">
+                    <Alert :message="flash.success"/>
                 </v-col>
                 <v-col v-if="$page.props.user.role.name === 'COACH'" cols="12" sm="8" class="d-flex justify-end my-5">
                     <v-btn color="primary" @click="handleCreateClick">Create New Plan</v-btn>
