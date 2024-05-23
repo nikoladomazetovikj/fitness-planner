@@ -4,13 +4,20 @@ import {ref, computed, watch} from 'vue';
 import {defineProps} from 'vue';
 import {router, Link, Head} from '@inertiajs/vue3';
 import DeleteAlert from "../../Components/DeleteAlert.vue";
+import Alert from "../../Components/Alert.vue";
 
 const props = defineProps({
     trainingPlans: {
         type: Object,
         required: true
+    },
+    flash: {
+        type: Object,
+        required: false
     }
 });
+
+console.log(props.flash)
 
 const page = ref(props.trainingPlans.current_page);
 const items = ref(props.trainingPlans.data);
@@ -52,6 +59,9 @@ const handleCreateClick = () => {
     <AuthLayout>
         <v-container class="d-flex justify-center align-center" fluid>
             <v-row class="d-flex justify-center" no-gutters>
+                <v-col v-if="flash.success" cols="12" sm="8" class="d-flex  my-5">
+                    <Alert :message="flash.success"/>
+                </v-col>
                 <v-col cols="12" sm="8" class="d-flex justify-end my-5">
                     <v-btn color="primary" @click="handleCreateClick">Create New Plan</v-btn>
                 </v-col>
