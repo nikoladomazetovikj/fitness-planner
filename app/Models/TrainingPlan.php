@@ -19,4 +19,9 @@ class TrainingPlan extends Model
     {
         return $this->belongsToMany(Category::class, 'training_plans_categories', 'training_plan_id', 'category_id');
     }
+
+    public function members(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'training_plans_members', 'training_plan_id', 'user_id');
+    }
 }

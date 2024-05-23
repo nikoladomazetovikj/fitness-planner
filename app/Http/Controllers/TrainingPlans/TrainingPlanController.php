@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\TrainingPlans;
 
 use App\Enums\RoleEnum;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\TrainingPlan\CreateRequest;
 use App\Http\Requests\TrainingPlan\DeleteRequest;
 use App\Http\Requests\TrainingPlan\UpdateRequest;
@@ -22,6 +23,11 @@ class TrainingPlanController extends Controller
             'trainingPlans' => TrainingPlan::with('coach.user', 'categories')
                 ->when(auth()->user()->role_id === RoleEnum::COACH->value, function ($query) {
                     $query->where('coach_id', auth()->user()->coach->id);
+                })
+                ->when(auth()->user()->role_id === RoleEnum::MEMBER->value, function ($query) {
+                    $query->with('members', function ($query) {
+                        $query->where('user_id', auth()->user()->id)->select('training_plan_id');
+                    });
                 })
                 ->orderByDesc('created_at')
                 ->paginate(5),

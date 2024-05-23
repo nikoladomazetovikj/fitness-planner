@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\TrainingPlanController;
+use App\Http\Controllers\TrainingPlans\TrainingPlanController;
+use App\Http\Controllers\TrainingPlans\TrainingPlanSubscriptionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -27,4 +28,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resources([
         'training-plans' => TrainingPlanController::class,
     ]);
+
+    Route::resource('my-training-plans', TrainingPlanSubscriptionController::class)->only('index', 'store', 'destroy');
 });

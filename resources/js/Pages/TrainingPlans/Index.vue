@@ -1,8 +1,8 @@
 <script setup>
 import AuthLayout from "../../Layouts/AuthLayout.vue";
-import {ref, computed, watch, onMounted} from 'vue';
+import {ref, watch, onMounted} from 'vue';
 import {defineProps} from 'vue';
-import {router, Link, Head} from '@inertiajs/vue3';
+import {router, Link, Head, useForm} from '@inertiajs/vue3';
 import DeleteAlert from "../../Components/DeleteAlert.vue";
 import Alert from "../../Components/Alert.vue";
 
@@ -17,6 +17,7 @@ const props = defineProps({
     }
 });
 
+console.log(props.trainingPlans)
 const page = ref(props.trainingPlans.current_page);
 const items = ref(props.trainingPlans.data);
 const dialogVisible = ref(false);
@@ -48,6 +49,14 @@ const closeDialog = () => {
 
 const handleCreateClick = () => {
     router.get(route('training-plans.create'));
+}
+
+const handleSubscription = (id) => {
+    router.post(route('my-training-plans.store', {id: id}))
+}
+
+const handleUnsubscribe = (id) => {
+    router.delete(route('my-training-plans.destroy', {id: id}))
 }
 
 onMounted(() => {
@@ -97,6 +106,15 @@ onMounted(() => {
                                                     class="d-flex justify-end">
                                         <v-btn color="primary" @click="handleEdit(item.raw.id)">Edit</v-btn>
                                         <v-btn color="red" @click="handleDelete(item.raw.id)">Delete</v-btn>
+                                    </v-card-actions>
+                                    <v-card-actions v-else
+                                                    class="d-flex justify-end">
+                                        <v-btn color="primary" v-if="item.raw.members.length > 0"
+                                               @click="handleUnsubscribe(item.raw.id)">Unsubscribe
+                                        </v-btn>
+                                        <v-btn color="primary" v-else
+                                               @click="handleSubscription(item.raw.id)">Subscribe
+                                        </v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </template>
