@@ -11,13 +11,8 @@ const props = defineProps({
         type: Object,
         required: true
     },
-    flash: {
-        type: Object,
-        required: false
-    }
 });
 
-console.log(props.flash)
 
 const page = ref(props.trainingPlans.current_page);
 const items = ref(props.trainingPlans.data);
@@ -59,10 +54,10 @@ const handleCreateClick = () => {
     <AuthLayout>
         <v-container class="d-flex justify-center align-center" fluid>
             <v-row class="d-flex justify-center" no-gutters>
-                <v-col v-if="flash.success" cols="12" sm="8" class="d-flex  my-5">
-                    <Alert :message="flash.success"/>
+                <v-col v-if="$page.props.flash.success" cols="12" sm="8" class="d-flex  my-5">
+                    <Alert :message="$page.props.flash.success"/>
                 </v-col>
-                <v-col cols="12" sm="8" class="d-flex justify-end my-5">
+                <v-col v-if="$page.props.user.role.name === 'COACH'" cols="12" sm="8" class="d-flex justify-end my-5">
                     <v-btn color="primary" @click="handleCreateClick">Create New Plan</v-btn>
                 </v-col>
                 <v-col cols="12" sm="8">
@@ -87,7 +82,8 @@ const handleCreateClick = () => {
                                             </v-col>
                                         </v-row>
                                     </v-card-text>
-                                    <v-card-actions class="d-flex justify-end">
+                                    <v-card-actions v-if="$page.props.user.role.name === 'COACH'"
+                                                    class="d-flex justify-end">
                                         <v-btn color="primary" @click="handleEdit(item.raw.id)">Edit</v-btn>
                                         <v-btn color="red" @click="handleDelete(item.raw.id)">Delete</v-btn>
                                     </v-card-actions>
