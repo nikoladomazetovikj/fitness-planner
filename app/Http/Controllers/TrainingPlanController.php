@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RoleEnum;
 use App\Http\Requests\TrainingPlan\CreateRequest;
 use App\Http\Requests\TrainingPlan\DeleteRequest;
 use App\Http\Requests\TrainingPlan\UpdateRequest;
@@ -21,6 +22,9 @@ class TrainingPlanController extends Controller
     {
         return Inertia::render('TrainingPlans/Index', [
             'trainingPlans' => TrainingPlan::with('coach.user', 'categories')
+                ->when(auth()->user()->role_id === RoleEnum::COACH->value, function ($query) {
+                    $query->where('coach_id', auth()->user()->coach->id);
+                })
                 ->orderByDesc('created_at')
                 ->paginate(5)
         ]);
