@@ -10,13 +10,13 @@ use App\Models\Country;
 use App\Models\Role;
 use App\Models\User;
 use App\Providers\AppServiceProvider;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Inertia\Response;
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -27,7 +27,7 @@ class AuthenticatedSessionController extends Controller
         return Inertia::render('Auth/Register',
             [
                 'countries' => Country::all(),
-                'roles' =>  Role::all()
+                'roles' => Role::all(),
 
             ]
         );
@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(RegisterRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(RegisterRequest $request): RedirectResponse
     {
         $user = User::create([
             'name' => $request->name,
@@ -54,7 +54,7 @@ class AuthenticatedSessionController extends Controller
             'country_id' => $request->country_id,
             'city' => $request->city,
             'dob' => $request->dob,
-            'role_id' => $request->role_id
+            'role_id' => $request->role_id,
         ]);
 
         if ($request->role_id === RoleEnum::COACH->value) {
@@ -69,7 +69,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function login(LoginRequest $request): \Illuminate\Http\RedirectResponse
+    public function login(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 

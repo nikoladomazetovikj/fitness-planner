@@ -9,8 +9,6 @@ use App\Http\Requests\TrainingPlan\UpdateRequest;
 use App\Models\Category;
 use App\Models\Coach;
 use App\Models\TrainingPlan;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class TrainingPlanController extends Controller
@@ -26,7 +24,7 @@ class TrainingPlanController extends Controller
                     $query->where('coach_id', auth()->user()->coach->id);
                 })
                 ->orderByDesc('created_at')
-                ->paginate(5)
+                ->paginate(5),
         ]);
     }
 

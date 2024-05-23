@@ -9,14 +9,12 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 });
 
-
 Route::middleware(['guest'])->group(function () {
     Route::get('/register', [AuthenticatedSessionController::class, 'create'])->name('register');
     Route::post('/register', [AuthenticatedSessionController::class, 'store']);
     Route::get('/login', [AuthenticatedSessionController::class, 'session'])->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'login']);
 });
-
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard/Dashboard');

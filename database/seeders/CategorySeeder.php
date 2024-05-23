@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +27,7 @@ class CategorySeeder extends Seeder
             'Walking',
             'Functional Training',
             'Flexibility',
-            'Balance Training'
+            'Balance Training',
         ];
 
         foreach ($categories as $category) {

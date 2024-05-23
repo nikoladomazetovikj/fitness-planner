@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\HandleInertiaRequests;
 use App\Providers\AppServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
