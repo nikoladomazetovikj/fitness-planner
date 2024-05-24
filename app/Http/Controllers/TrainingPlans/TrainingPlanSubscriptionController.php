@@ -26,7 +26,7 @@ class TrainingPlanSubscriptionController extends Controller
     {
         $trainingPlan = TrainingPlan::find($request->id);
 
-        $trainingPlan->members()->sync([auth()->user()->id]);
+        $trainingPlan->members()->attach(auth()->user()->id);
 
         return redirect()->route('training-plans.index')->with('success', 'Subscribed successfully.');
     }
@@ -35,8 +35,10 @@ class TrainingPlanSubscriptionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TrainingPlan $trainingPlan, SubscribeRequest $request)
+    public function destroy($id, SubscribeRequest $request)
     {
+        $trainingPlan = TrainingPlan::find($id);
+
         $trainingPlan->members()->detach(auth()->user()->id);
 
         return redirect()->route('training-plans.index')->with('success', 'Unsubscribed successfully.');

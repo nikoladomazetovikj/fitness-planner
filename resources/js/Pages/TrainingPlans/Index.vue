@@ -52,11 +52,11 @@ const handleCreateClick = () => {
 }
 
 const handleSubscription = (id) => {
-    router.post(route('my-training-plans.store', {id: id}))
+    router.post(route('my-training-plans.store'), {id: id}, {preserveState: false})
 }
 
 const handleUnsubscribe = (id) => {
-    router.delete(route('my-training-plans.destroy', {id: id}))
+    router.delete(route('my-training-plans.destroy', id), {preserveState: false})
 }
 
 onMounted(() => {

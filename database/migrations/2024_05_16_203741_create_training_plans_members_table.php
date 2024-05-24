@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('training_plans_members', function (Blueprint $table) {
-            $table->foreignId('user_id');
-            $table->foreignId('training_plan_id')->references('id')->on('training_plans');
+            $table->foreignId('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('training_plan_id')->references('id')->on('training_plans')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

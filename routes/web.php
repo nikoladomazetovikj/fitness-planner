@@ -25,9 +25,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
+    Route::delete('my-training-plans/{id}', [TrainingPlanSubscriptionController::class, 'destroy'])->name('my-training-plans.destroy');
+
     Route::resources([
         'training-plans' => TrainingPlanController::class,
     ]);
 
-    Route::resource('my-training-plans', TrainingPlanSubscriptionController::class)->only('index', 'store', 'destroy');
+    Route::resource('my-training-plans', TrainingPlanSubscriptionController::class)->only('index', 'store');
+
 });

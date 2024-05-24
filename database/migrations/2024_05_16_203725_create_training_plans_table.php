@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description');
-            $table->foreignId('coach_id');
+            $table->foreignId('coach_id')->constrained('coaches')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
