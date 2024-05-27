@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Members\UploadMembersController;
 use App\Http\Controllers\TrainingPlans\TrainingPlanController;
 use App\Http\Controllers\TrainingPlans\TrainingPlanSubscriptionController;
 use Illuminate\Support\Facades\Route;
@@ -25,12 +26,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-    Route::delete('my-training-plans/{id}', [TrainingPlanSubscriptionController::class, 'destroy'])->name('my-training-plans.destroy');
-
     Route::resources([
         'training-plans' => TrainingPlanController::class,
+        'upload-members' => UploadMembersController::class
     ]);
 
-    Route::resource('my-training-plans', TrainingPlanSubscriptionController::class)->only('index', 'store');
+    Route::resource('my-training-plans', TrainingPlanSubscriptionController::class)->only('index', 'store', 'destroy');
+
 
 });
