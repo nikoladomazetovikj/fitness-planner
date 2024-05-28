@@ -7,6 +7,7 @@ use App\Imports\UsersImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UploadMembersController extends Controller
 {
@@ -23,31 +24,17 @@ class UploadMembersController extends Controller
      */
     public function store(Request $request)
     {
-        $import = new UsersImport();
-        $errors = [];
+        $import = new UsersImport;
 
-        try {
-            $import->import($request->file('file'));
+        Excel::import($import, $request->file('file'));
 
-        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
-            $failures = $e->failures();
+        $data = $import->data;
+        $errors = $import->errors;
 
-            foreach ($failures as $failure) {
-                $errors[] = [
-                    'row' => $failure->row(),
-                    'attribute' => $failure->attribute(),
-                    'errors' => $failure->errors(),
-                    'values' => $failure->values(),
-                ];
-            }
-        }
-
-
-        if (!empty($errors)) {
-            return redirect()->back()->with(['error' => $errors]);
-        }
-
-        return redirect()->route('upload-members.index')->with('success', 'Members imported successfully!');
+        dd([
+            'data' => $data,
+            'errors' => $errors,
+        ]);
     }
 
     /**
