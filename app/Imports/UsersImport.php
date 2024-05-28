@@ -42,7 +42,7 @@ class UsersImport implements ToArray, WithHeadingRow, SkipsOnFailure
             ]);
 
             if ($validator->fails()) {
-                $this->errors[$index] = $validator->errors()->all();
+                $this->errors[$index] = $validator->errors()->messages();
                 continue;
             }
 

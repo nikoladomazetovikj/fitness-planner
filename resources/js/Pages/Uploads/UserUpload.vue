@@ -8,6 +8,8 @@ const form = useForm({
     file: null,
 })
 
+defineProps({data: Array, errors: Array})
+
 const importErrors = ref([]);
 
 function submit() {

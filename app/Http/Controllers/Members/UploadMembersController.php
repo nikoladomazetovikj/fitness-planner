@@ -31,10 +31,7 @@ class UploadMembersController extends Controller
         $data = $import->data;
         $errors = $import->errors;
 
-        dd([
-            'data' => $data,
-            'errors' => $errors,
-        ]);
+       return Inertia::render('Uploads/UserUpload', ['data' => $data, 'errors' => $errors]);
     }
 
     /**
