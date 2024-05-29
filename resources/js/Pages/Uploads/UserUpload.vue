@@ -29,10 +29,14 @@ const tableData = computed(() => {
     });
 });
 
-console.log(tableData)
 function submit() {
     form.post(route('upload-members.store'));
 }
+
+function insert() {
+    form.post(route('upload-members.insert'))
+}
+
 </script>
 
 <template>
@@ -69,7 +73,7 @@ function submit() {
                                     >
                                         <template v-for="header in headers" v-slot:[`item.${header.key}`]="{ item }">
                                             <div>
-                                                <v-btn>
+                                                <v-btn :class="{ 'text-red': item.errors && item.errors[header.key] }">
                                                     {{ item[header.key] }}
                                                     <v-tooltip
                                                         v-if="item.errors && item.errors[header.key]"
@@ -83,6 +87,11 @@ function submit() {
                                     </v-data-table-virtual>
                                 </v-col>
                             </v-row>
+                            <v-row>
+                                <v-btn type="submit" @click="insert">
+                                    Insert Users
+                                </v-btn>
+                            </v-row>
                         </v-container>
                     </v-sheet>
                 </v-col>
@@ -94,5 +103,11 @@ function submit() {
 <style scoped>
 .v-container {
     max-height: 100vh;
+}
+.tooltip-content {
+    background-color: white;
+    color: red;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
 </style>

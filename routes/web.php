@@ -32,6 +32,6 @@ Route::middleware(['auth'])->group(function () {
     ]);
 
     Route::resource('my-training-plans', TrainingPlanSubscriptionController::class)->only('index', 'store', 'destroy');
-
+    Route::post('upload-members/insert', [UploadMembersController::class, 'storeUpdate'])->name('upload-members.insert');
 
 });

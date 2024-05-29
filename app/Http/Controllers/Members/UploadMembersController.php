@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Members;
 
 use App\Http\Controllers\Controller;
+use App\Imports\StoreUsersImport;
 use App\Imports\UsersImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -32,6 +33,13 @@ class UploadMembersController extends Controller
         $errors = $import->errors;
 
        return Inertia::render('Uploads/UserUpload', ['data' => $data, 'errors' => $errors]);
+    }
+
+    public function storeUpdate(Request $request)
+    {
+        Excel::import(new StoreUsersImport, $request->file('file'));
+
+        return redirect()->back()->with('success', 'Users stored');
     }
 
     /**
