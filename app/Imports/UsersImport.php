@@ -14,9 +14,9 @@ use Maatwebsite\Excel\Concerns\ToArray;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class UsersImport implements ToArray, WithHeadingRow, SkipsOnFailure
+class UsersImport implements ToArray, WithHeadingRow
 {
-    use Importable, SkipsFailures;
+    use Importable;
 
     public $data = [];
     public $errors = [];
@@ -41,21 +41,18 @@ class UsersImport implements ToArray, WithHeadingRow, SkipsOnFailure
                 'country.not_in' => 'The country is not allowed.',
             ]);
 
+            $this->data[$index] = [
+                'name' => $row['name'] ?? null,
+                'surname' => $row['surname'] ?? null,
+                'email' => $row['email'] ?? null,
+                'dob' => $row['dob'] ?? null,
+                'country' => $row['country'] ?? null,
+                'city' => $row['city'] ?? null
+            ];
+
             if ($validator->fails()) {
                 $this->errors[$index] = $validator->errors()->messages();
-                continue;
             }
-
-            $this->data[$index] = [
-                'name' => $row['name'],
-                'surname' => $row['surname'],
-                'email' => $row['email'],
-                'password' => Hash::make('12345678'),
-                'dob' => $row['dob'],
-                'role_id' => RoleEnum::MEMBER,
-                'country_id' => Country::where('name', $row['country'])->first()->id,
-                'city' => $row['city']
-            ];
         }
     }
 }
