@@ -9,7 +9,15 @@ const form = useForm({
 
 const props = defineProps({data: Array, errors: Object});
 
-const importErrors = ref([]);
+const headers =  [
+    { title: 'Name', align: 'center', key: 'name' },
+    { title: 'Surname', align: 'center', key: 'surname' },
+    { title: 'Email', align: 'center', key: 'email' },
+    { title: 'Date of birth', align: 'center', key: 'dob' },
+    { title: 'Country', align: 'center', key: 'country' },
+    { title: 'City', align: 'center', key: 'city' },
+]
+
 
 const tableData = computed(() => {
     return props.data?.map((item, index) => {
@@ -22,13 +30,7 @@ const tableData = computed(() => {
 });
 
 function submit() {
-    form.post(route('upload-members.store'), {
-        onError: (errors) => {
-            if (errors.import_errors) {
-                importErrors.value = errors.import_errors;
-            }
-        },
-    });
+    form.post(route('upload-members.store'));
 }
 </script>
 
@@ -57,41 +59,12 @@ function submit() {
                         <v-container>
                             <v-row>
                                 <v-col cols="12">
-                                    <v-data-table :items="tableData" class="elevation-1">
-                                        <template #item.rowIndex="{ item }">
-                                            <v-tooltip bottom>
-                                                <template #activator="{ on, attrs }">
-                                                    <span v-bind="attrs" v-on="on">{{ item.rowIndex + 1 }}</span>
-                                                </template>
-                                                <span v-if="Object.keys(item.errors).length">
-                          <strong v-for="(fieldErrors, field) in item.errors" :key="field">
-                            {{ field }}:
-                            <ul>
-                              <li v-for="(message, index) in fieldErrors" :key="index">{{ message }}</li>
-                            </ul>
-                          </strong>
-                        </span>
-                                            </v-tooltip>
-                                        </template>
-                                        <template #item.name="{ item }">
-                                            {{ item.name }}
-                                        </template>
-                                        <template #item.surname="{ item }">
-                                            {{ item.surname }}
-                                        </template>
-                                        <template #item.email="{ item }">
-                                            {{ item.email }}
-                                        </template>
-                                        <template #item.dob="{ item }">
-                                            {{ item.dob }}
-                                        </template>
-                                        <template #item.country="{ item }">
-                                            {{ item.country }}
-                                        </template>
-                                        <template #item.city="{ item }">
-                                            {{ item.city }}
-                                        </template>
-                                    </v-data-table>
+                                    <v-data-table-virtual
+                                        :headers="headers"
+                                        :items="tableData"
+                                        height="400"
+                                        item-value="name"
+                                    ></v-data-table-virtual>
                                 </v-col>
                             </v-row>
                         </v-container>
