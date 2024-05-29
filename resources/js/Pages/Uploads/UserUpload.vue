@@ -69,13 +69,15 @@ function submit() {
                                     >
                                         <template v-for="header in headers" v-slot:[`item.${header.key}`]="{ item }">
                                             <div>
-                                                {{ item[header.key] }}
-                                                <v-tooltip bottom v-if="item.errors && item.errors[header.key]">
-                                                    <template v-slot:activator="{ on }">
-                                                        <v-icon color="error" v-on="on">mdi-alert-circle</v-icon>
-                                                        <span>{{ item.errors[header.key][0] }}</span>
-                                                    </template>
-                                                </v-tooltip>
+                                                <v-btn>
+                                                    {{ item[header.key] }}
+                                                    <v-tooltip
+                                                        v-if="item.errors && item.errors[header.key]"
+                                                        activator="parent"
+                                                        location="top"
+                                                    >{{ item.errors[header.key][0] }}
+                                                    </v-tooltip>
+                                                </v-btn>
                                             </div>
                                         </template>
                                     </v-data-table-virtual>
