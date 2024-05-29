@@ -1,7 +1,7 @@
 <script setup>
 import {Head, useForm} from "@inertiajs/vue3";
 import AuthLayout from "../../Layouts/AuthLayout.vue";
-import {ref, computed} from "vue";
+import  {computed} from "vue";
 
 const form = useForm({
     file: null,
@@ -29,6 +29,7 @@ const tableData = computed(() => {
     });
 });
 
+console.log(tableData)
 function submit() {
     form.post(route('upload-members.store'));
 }
@@ -64,7 +65,20 @@ function submit() {
                                         :items="tableData"
                                         height="400"
                                         item-value="name"
-                                    ></v-data-table-virtual>
+                                        hover
+                                    >
+                                        <template v-for="header in headers" v-slot:[`item.${header.key}`]="{ item }">
+                                            <div>
+                                                {{ item[header.key] }}
+                                                <v-tooltip bottom v-if="item.errors && item.errors[header.key]">
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-icon color="error" v-on="on">mdi-alert-circle</v-icon>
+                                                        <span>{{ item.errors[header.key][0] }}</span>
+                                                    </template>
+                                                </v-tooltip>
+                                            </div>
+                                        </template>
+                                    </v-data-table-virtual>
                                 </v-col>
                             </v-row>
                         </v-container>
